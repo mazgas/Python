@@ -8,11 +8,24 @@ netflix_df = pd.read_csv("netflix_data.csv")
 # What was the most frequent movie duration in the 1990s? Save an approximate answer as an integer called duration (use 1990 as the decade's start year)
 
 netflix_df = pd.DataFrame(netflix_df)
+
+''' In pandas, you need to use bitwise operators (& for "and" and | for "or") instead of the logical operators (and, or) when combining multiple conditions.'''
+
 movies = netflix_df[(netflix_df['release_year'] >= 1990) & (netflix_df['release_year'] < 2000)]
 duration = movies['duration'].mode()[0]
 
+''' Breakdown of the Line
+movies_90s['duration']:
+This part selects the duration column from the movies_90s DataFrame. It contains the duration of each movie in the 1990s.
+.mode():
+The mode() function in pandas calculates the mode of the selected column. The mode is the value that appears most frequently in the column. The result is a Series containing all the mode values (if there are multiple modes).
+[0]:
+Since mode() returns a Series, [0] is used to select the first element of the Series. This is done to get a single value representing the most frequent movie duration. '''
+
 # A movie is considered short if it is less than 90 minutes. Count the number of short action movies released in the 1990s and save this integer as short_movie_count
 short_movie_count = len(movies[(movies['duration'] < 90 ) & (movies['genre'] == 'Action')])
+
+''' The len() function calculates the number of rows in the filtered DataFrame. This gives the count of short action movies released in the 1990s.'''
 
 print(duration)
 print(short_movie_count)
